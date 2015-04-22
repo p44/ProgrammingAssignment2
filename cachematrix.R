@@ -11,17 +11,25 @@
 ##   get the value of the inverse matrix
 ##
 makeCacheMatrix <- function(x = matrix()) {
-	## define the functions
-	i <- NULL							# default cached inverse matrix to Null
+	
+	i <- NULL	
+	
+	## cache the matrix, Null out the inverse as the matrix is new and likely different						
 	set <- function(y) {
-        x <<- y							# cache it to x in other environment
-        i <<- NULL						# Null out the inverse matrix upon set (could be different)
+        x <<- y							
+        i <<- NULL						
 	}
-	get <- function() { x }				# fetch cached x from other environment
+	
+	## fetch cached x from other environment
+	get <- function() { x }		
+	
+	## cache it to i in other environment		
 	setInverse <- function(inverse_matrix) {
-        i <<- inverse_matrix			# cache it to i in other environment
+        i <<- inverse_matrix			
     }
-	getInverse <- function() { i }		# fetch cached i from other environment
+
+	## fetch cached i from other environment
+	getInverse <- function() { i }		
 
 	## return a list of functions
 	list(set = set, get = get, setInverse = setInverse, getInverse = getInverse)
@@ -34,14 +42,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ## If not found, will calculate the inverse then cache it for the next call and return it
 ##
 cacheSolve <- function(x, ...) {
-	cachedInverse <- x$getInverse()		# get the cached inverse (might be null)
-	if (!is.null(cachedInverse)) {		# if found in cache return it.
+
+	## get the cached inverse (might be null)
+	cachedInverse <- x$getInverse()		
+	if (!is.null(cachedInverse)) {		
 		cachedInverse
 	} else {
-		xx <- x$get()					# get the matrix to calc inverse
-		xxInverse <- solve(xx, ...)		# calculate inverse
-		x$setInverse(xxInverse)			# cache the inverse
-		xxInverse						# return the inverse - next time will be much faster
+		xx <- x$get()					
+		xxInverse <- solve(xx, ...)		
+		x$setInverse(xxInverse)			
+		xxInverse						
 	}
 }
 
