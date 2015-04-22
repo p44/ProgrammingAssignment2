@@ -12,27 +12,27 @@
 ##
 makeCacheMatrix <- function(x = matrix()) {
 	
-	i <- NULL	
+    i <- NULL	
 	
-	## cache the matrix, Null out the inverse as the matrix is new and likely different						
-	set <- function(y) {
+    ## cache the matrix, Null out the inverse as the matrix is new and likely different						
+    set <- function(y) {
         x <<- y							
         i <<- NULL						
-	}
+    }
 	
-	## fetch cached x from other environment
-	get <- function() { x }		
+    ## fetch cached x from other environment
+    get <- function() { x }		
 	
-	## cache it to i in other environment		
-	setInverse <- function(inverse_matrix) {
+    ## cache it to i in other environment		
+    setInverse <- function(inverse_matrix) {
         i <<- inverse_matrix			
     }
 
-	## fetch cached i from other environment
-	getInverse <- function() { i }		
+    ## fetch cached i from other environment
+    getInverse <- function() { i }		
 
-	## return a list of functions
-	list(set = set, get = get, setInverse = setInverse, getInverse = getInverse)
+    ## return a list of functions
+    list(set = set, get = get, setInverse = setInverse, getInverse = getInverse)
 }
 
 
@@ -43,16 +43,16 @@ makeCacheMatrix <- function(x = matrix()) {
 ##
 cacheSolve <- function(x, ...) {
 
-	## get the cached inverse (might be null)
-	cachedInverse <- x$getInverse()		
-	if (!is.null(cachedInverse)) {		
-		cachedInverse
-	} else {
-		xx <- x$get()					
-		xxInverse <- solve(xx, ...)		
-		x$setInverse(xxInverse)			
-		xxInverse						
-	}
+    ## get the cached inverse (might be null)
+    cachedInverse <- x$getInverse()		
+    if (!is.null(cachedInverse)) {		
+        cachedInverse
+    } else {
+        xx <- x$get()					
+        xxInverse <- solve(xx, ...)		
+        x$setInverse(xxInverse)			
+        xxInverse						
+    }
 }
 
 ##
