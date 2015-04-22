@@ -41,7 +41,9 @@ makeCacheMatrix <- function(x = matrix()) {
 ##
 cacheSolve <- function(x, ...) {
     ## get the cached inverse (might be null)
-    cachedInverse <- x$getInverse()		
+    cachedInverse <- x$getInverse()	
+
+    ## If not found calculate it using solve() and cache it	with setInverse()
     if (!is.null(cachedInverse)) {		
         cachedInverse
     } else {
