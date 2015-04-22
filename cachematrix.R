@@ -2,7 +2,6 @@
 
 ##
 ## This function creates a special "matrix" object that can cache its inverse.
-## Do not doubt it's specialness.
 ## 
 ## Returns a list containing functions to:
 ##   set the value of the matrix
@@ -11,7 +10,6 @@
 ##   get the value of the inverse matrix
 ##
 makeCacheMatrix <- function(x = matrix()) {
-	
     i <- NULL	
 	
     ## cache the matrix, Null out the inverse as the matrix is new and likely different						
@@ -42,7 +40,6 @@ makeCacheMatrix <- function(x = matrix()) {
 ## If not found, will calculate the inverse then cache it for the next call and return it
 ##
 cacheSolve <- function(x, ...) {
-
     ## get the cached inverse (might be null)
     cachedInverse <- x$getInverse()		
     if (!is.null(cachedInverse)) {		
